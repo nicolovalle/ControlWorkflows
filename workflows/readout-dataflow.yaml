@@ -1299,7 +1299,7 @@ roles:
         task:
           load: "shell-command"
           trigger: before_DEPLOY
-          await: before_DEPLOY+10
+          await: before_DEPLOY-100
           timeout: "{{ fmq_initial_shm_cleanup_timeout }}"
           critical: false
       - name: fairmq-shmmonitor
