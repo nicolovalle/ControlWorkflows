@@ -1298,7 +1298,7 @@ roles:
           user: root
         task:
           load: "shell-command"
-          trigger: before_CONFIGURE
+          trigger: before_DEPLOY
           timeout: "{{ fmq_initial_shm_cleanup_timeout }}"
           critical: false
       - name: fairmq-shmmonitor
