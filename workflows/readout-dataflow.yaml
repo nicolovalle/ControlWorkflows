@@ -1298,7 +1298,7 @@ roles:
           user: root
         task:
           load: "shell-command"
-          trigger: before_DEPLOY-100
+          trigger: before_DEPLOY
           timeout: "{{ fmq_initial_shm_cleanup_timeout }}"
           critical: false
       - name: fairmq-shmmonitor
@@ -1332,7 +1332,6 @@ roles:
           readout_cfg_uri: '{{dd_enabled == "true" ? readout_cfg_uri_stfb : readout_cfg_uri_standalone}}'
         task:
           load: readout
-          trigger: before_DEPLOY-99
       - name: "data-distribution"
         enabled: "{{dd_enabled == 'true' && (qcdd_enabled == 'false' && minimal_dpl_enabled == 'false' && dpl_workflow == 'none' && dpl_command == 'none')}}"
         roles:
@@ -1452,7 +1451,7 @@ roles:
           user: root
         task:
           load: "shell-command"
-          trigger: before_CONFIGURE
+          trigger: before_DEPLOY
           timeout: "{{ fmq_initial_shm_cleanup_timeout }}"
           critical: false
       - name: fairmq-shmmonitor
