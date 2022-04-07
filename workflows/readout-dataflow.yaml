@@ -319,6 +319,7 @@ defaults:
       - its-qcmn-fhr-fee-local
       - its-qcmn-fhr-fee-no-ds-local
       - its-qcmn-fhr-fee-no-ds-entire-local
+      - its-qcmn-flp-epn-no-ds-cluster-trending-remote
       - minimal-dpl
       - qc-daq
       - qcmn-daq-local
