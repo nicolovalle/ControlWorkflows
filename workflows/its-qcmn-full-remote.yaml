@@ -73,6 +73,25 @@ roles:
       rcvBufSize: 1
     task:
       load: its-qcmn-full-remote-ITS-ITSClusterTask-proxy
+  - name: "ITS-ITSDECODING-proxy"
+    connect:
+    - name: from_internal-dpl-clock_to_ITS-ITSDECODING-proxy
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.internal-dpl-clock:from_internal-dpl-clock_to_ITS-ITSDECODING-proxy"
+      rateLogging: "{{ fmq_rate_logging }}"
+      sndBufSize: 4
+      rcvBufSize: 4
+    bind:
+    - name: ITS-ITSDECODING-proxy
+      type: sub
+      transport: zeromq
+      addressing: tcp
+      rateLogging: "{{ fmq_rate_logging }}"
+      target: "tcp://*:47707"
+      rcvBufSize: 1
+    task:
+      load: its-qcmn-full-remote-ITS-ITSDECODING-proxy
   - name: "ITS-ITSTrackTask-proxy"
     connect:
     - name: from_internal-dpl-clock_to_ITS-ITSTrackTask-proxy
@@ -161,6 +180,24 @@ roles:
       rcvBufSize: 4
     task:
       load: its-qcmn-full-remote-ITS-MERGER-ITSClusterTask1l-0
+  - name: "ITS-MERGER-ITSDECODING1l-0"
+    connect:
+    - name: from_internal-dpl-clock_to_ITS-MERGER-ITSDECODING1l-0
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.internal-dpl-clock:from_internal-dpl-clock_to_ITS-MERGER-ITSDECODING1l-0"
+      rateLogging: "{{ fmq_rate_logging }}"
+      sndBufSize: 4
+      rcvBufSize: 4
+    - name: from_ITS-ITSDECODING-proxy_to_ITS-MERGER-ITSDECODING1l-0
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.ITS-ITSDECODING-proxy:from_ITS-ITSDECODING-proxy_to_ITS-MERGER-ITSDECODING1l-0"
+      rateLogging: "{{ fmq_rate_logging }}"
+      sndBufSize: 4
+      rcvBufSize: 4
+    task:
+      load: its-qcmn-full-remote-ITS-MERGER-ITSDECODING1l-0
   - name: "ITS-MERGER-ITSFEE1l-0"
     connect:
     - name: from_internal-dpl-clock_to_ITS-MERGER-ITSFEE1l-0
@@ -270,6 +307,17 @@ roles:
       rcvBufSize: 4
     task:
       load: its-qcmn-full-remote-qc-check-sink-QC_ITSqcTrending-mo_0
+  - name: "qc-check-sink-QITS_ITSDECODING_0"
+    connect:
+    - name: from_ITS-MERGER-ITSDECODING1l-0_to_qc-check-sink-QITS_ITSDECODING_0
+      type: pull
+      transport: shmem
+      target: "{{ Parent().Path }}.ITS-MERGER-ITSDECODING1l-0:from_ITS-MERGER-ITSDECODING1l-0_to_qc-check-sink-QITS_ITSDECODING_0"
+      rateLogging: "{{ fmq_rate_logging }}"
+      sndBufSize: 4
+      rcvBufSize: 4
+    task:
+      load: its-qcmn-full-remote-qc-check-sink-QITS_ITSDECODING_0
   - name: "internal-dpl-injected-dummy-sink"
     connect:
     - name: from_qc-check-ITS-FHRCheck_to_internal-dpl-injected-dummy-sink

@@ -156,6 +156,28 @@
         "localControl":"odc",
         "remotePort":"47706",
         "remoteMachine":"alio2-cr1-qme04.cern.ch"
+      },
+      "ITSDECODING": {
+        "active": "true",
+        "className": "o2::quality_control_modules::its::ITSDecodingErrorTask",
+        "moduleName": "QcITS",
+        "detectorName": "ITS",
+        "cycleDurationSeconds": "180",
+        "maxNumberCycles": "-1",
+        "dataSource": {
+          "type": "direct",
+          "query": "linkerrors:ITS/LinkErrors/0;decerrors:ITS/ChipErrors/0"
+        },
+        "location": "local",
+        "taskParameters": {
+        },
+        "localMachines":[
+          "localhost",
+          "epn"
+        ],
+        "localControl":"odc",
+        "remotePort":"47707",
+        "remoteMachine":"alio2-cr1-qme04.cern.ch"
       }
     },
     "checks":{
@@ -9644,6 +9666,21 @@
         }
       ],
       "blocking":"false"
+    },
+    {
+      "id": "linkerrors",
+      "comment": "it will be ignored with the decoding error task in directo mode",
+      "active": "true",
+      "machines": [],
+      "query": "linkerrors:ITS/LinkErrors/0;decerrors:ITS/ChipErrors/0",
+      "samplingConditions": [
+        {
+          "condition": "random",
+          "fraction": "1",
+          "seed": "1441"
+        }
+      ],
+      "blocking": "false"
     }
   ]
 }
